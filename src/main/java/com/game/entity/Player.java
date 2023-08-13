@@ -1,23 +1,38 @@
 package com.game.entity;
 
+import jakarta.persistence.*;
+
 import java.util.Date;
 
-
+@Entity
+@Table(schema = "rpg", name = "player")
 public class Player {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, length = 12)
     private String name;
 
+    @Column(nullable = false, length = 30)
     private String title;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.ORDINAL)
     private Race race;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.ORDINAL)
     private Profession profession;
 
+    @Column(nullable = false)
     private Date birthday;
 
+    @Column(nullable = false)
     private Boolean banned;
 
+    @Column(nullable = false)
     private Integer level;
 
     public Player() {
@@ -96,5 +111,20 @@ public class Player {
 
     public void setLevel(Integer level) {
         this.level = level;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Player{");
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", title='").append(title).append('\'');
+        sb.append(", race=").append(race);
+        sb.append(", profession=").append(profession);
+        sb.append(", birthday=").append(birthday);
+        sb.append(", banned=").append(banned);
+        sb.append(", level=").append(level);
+        sb.append('}');
+        return sb.toString();
     }
 }
