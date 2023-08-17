@@ -38,7 +38,7 @@ public class PlayerRepositoryDB implements IPlayerRepository {
     public List<Player> getAll(int pageNumber, int pageSize) {
         try (Session session = sessionFactory.openSession()) {
             NativeQuery<Player> query = session.createNativeQuery(
-                    "select * from rpg.player order by id", Player.class);
+                    DBConstants.SELECT_ALL_PLAYERS_SQL, Player.class);
             query.setFirstResult(pageNumber * pageSize);
             query.setMaxResults(pageSize);
             return query.list();
