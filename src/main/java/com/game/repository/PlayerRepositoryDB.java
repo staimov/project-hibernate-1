@@ -1,5 +1,6 @@
 package com.game.repository;
 
+import com.game.config.DBConstants;
 import com.game.entity.Player;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -20,12 +21,12 @@ public class PlayerRepositoryDB implements IPlayerRepository {
     public PlayerRepositoryDB() {
         Properties properties = new Properties();
 
-        properties.put(Environment.DIALECT, "org.hibernate.dialect.MySQL8Dialect");
-        properties.put(Environment.USER, "root");
-        properties.put(Environment.PASS, "root");
-        properties.put(Environment.HBM2DDL_AUTO, "update");
-        properties.put(Environment.DRIVER, "com.p6spy.engine.spy.P6SpyDriver");
-        properties.put(Environment.URL, "jdbc:p6spy:mysql://localhost:3306/rpg");
+        properties.put(Environment.DIALECT, DBConstants.DB_DIALECT);
+        properties.put(Environment.USER, DBConstants.DB_USER);
+        properties.put(Environment.PASS, DBConstants.DB_PASS);
+        properties.put(Environment.HBM2DDL_AUTO, DBConstants.DB_HBM2DDL_AUTO);
+        properties.put(Environment.DRIVER, DBConstants.DB_DRIVER);
+        properties.put(Environment.URL, DBConstants.DB_URL);
 
         sessionFactory = new Configuration()
                 .setProperties(properties)
@@ -56,7 +57,7 @@ public class PlayerRepositoryDB implements IPlayerRepository {
     public Player save(Player player) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
-            session.save(player);
+            session.persist(player);
             transaction.commit();
             return player;
         }
