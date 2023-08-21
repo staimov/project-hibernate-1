@@ -55,21 +55,31 @@ public class PlayerRepositoryDB implements IPlayerRepository {
 
     @Override
     public Player save(Player player) {
+        Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
+            transaction = session.beginTransaction();
             session.persist(player);
             transaction.commit();
             return player;
+        }
+        catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            throw new RuntimeException(e);
         }
     }
 
     @Override
     public Player update(Player player) {
+        Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
+            transaction = session.beginTransaction();
             session.merge(player);
             transaction.commit();
             return player;
+        }
+        catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            throw new RuntimeException(e);
         }
     }
 
@@ -89,10 +99,15 @@ public class PlayerRepositoryDB implements IPlayerRepository {
 
     @Override
     public void delete(Player player) {
+        Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
+            transaction = session.beginTransaction();
             session.remove(player);
             transaction.commit();
+        }
+        catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            throw new RuntimeException(e);
         }
     }
 
