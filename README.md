@@ -1,4 +1,4 @@
-[![My Skills](https://skillicons.dev/icons?i=java,hibernate,mysql,html,bootstrap,js&theme=light)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=java,hibernate,mysql,html,bootstrap,js,jquery&theme=light)](https://skillicons.dev)
 # project-hibernate-1
 ### RPG Admin Panel
 
